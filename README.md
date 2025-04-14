@@ -12,7 +12,7 @@ A simple public website for downloading video and audio content from multiple pl
 - **Video title and thumbnail**: Fetches and displays the video thumbnail and title.
 
 ## Screenshots 📸
-![Screenshot](https://example.com/screenshot.png)
+![Screenshot](screenshot.png)
 
 ## Installation ⚙️
 
@@ -36,8 +36,8 @@ This project requires [FFmpeg](https://phoenixnap.com/kb/ffmpeg-windows) to conv
 ### Cloning the Repository 💻
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/your-repository.git
-   cd your-repository
+   git clone https://github.com/aenigma-lab/play2save.git
+   cd play2save
 
 ### Install dependencies 🛠️
 ```bash
