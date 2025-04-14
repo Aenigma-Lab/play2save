@@ -66,24 +66,30 @@ def download():
     temp_path = os.path.join(DOWNLOAD_FOLDER, unique_id)
     os.makedirs(temp_path, exist_ok=True)
 
-    # Set options for downloading and merging audio + video
     ydl_opts = {
-        'format': 'bestvideo+bestaudio/best',  # Merge best video + audio
+        'format': f'{format_id}+bestaudio/best',  # Download selected video format + best audio
         'outtmpl': os.path.join(temp_path, '%(title)s.%(ext)s'),
         'merge_output_format': 'mp4',
-        'ffmpeg_location': os.path.abspath('ffmpeg/bin'),  # Path to your ffmpeg folder
-        'noplaylist': True,  # Disable playlist download
+        'postprocessors': [{
+            'key': 'FFmpegVideoConvertor',
+            'preferedformat': 'mp4',
+        }],
+        'ffmpeg_location': os.path.abspath('C:/ffmpeg/bin'),  # Update this to actual ffmpeg.exe path
+        'noplaylist': True,
     }
 
-    with YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=True)
-        filepath = ydl.prepare_filename(info)
+    try:
+        with YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+            filepath = ydl.prepare_filename(info)
 
-    # Ensure the file has the .mp4 extension (in case of issues)
-    if not filepath.endswith('.mp4'):
-        filepath = filepath.rsplit('.', 1)[0] + '.mp4'
+        if not filepath.endswith('.mp4'):
+            filepath = filepath.rsplit('.', 1)[0] + '.mp4'
 
-    return send_file(filepath, as_attachment=True)
+        return send_file(filepath, as_attachment=True)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # Route for MP3 download
 @app.route("/download_mp3", methods=["POST"])
@@ -93,28 +99,29 @@ def download_mp3():
     temp_path = os.path.join(DOWNLOAD_FOLDER, unique_id)
     os.makedirs(temp_path, exist_ok=True)
 
-    # Set options for extracting only the audio (MP3)
     ydl_opts = {
-        'format': 'bestaudio/best',  # Download the best audio format
+        'format': 'bestaudio/best',  # Only best audio needed
         'outtmpl': os.path.join(temp_path, '%(title)s.%(ext)s'),
         'postprocessors': [{
-            'key': 'FFmpegAudioConvertor',
-            'preferredcodec': 'mp3',  # Convert audio to MP3
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
-        'ffmpeg_location': os.path.abspath('ffmpeg/bin'),  # Path to your ffmpeg folder
-        'noplaylist': True,  # Disable playlist download
+        'ffmpeg_location': os.path.abspath('C:/ffmpeg/bin'),
+        'noplaylist': True,
     }
 
-    with YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=True)
-        filepath = ydl.prepare_filename(info)
+    try:
+        with YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+            filepath = ydl.prepare_filename(info)
 
-    # Ensure the file has the .mp3 extension
-    if not filepath.endswith('.mp3'):
-        filepath = filepath.rsplit('.', 1)[0] + '.mp3'
+        if not filepath.endswith('.mp3'):
+            filepath = filepath.rsplit('.', 1)[0] + '.mp3'
 
-    return send_file(filepath, as_attachment=True)
+        return send_file(filepath, as_attachment=True)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # Run the app
 if __name__ == "__main__":
