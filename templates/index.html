@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Play2Save</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+          <div class="nav-left">
+            <img src="/static/download.svg" alt="Logo" class="nav-logo">
+            <span class="nav-title">Play2Save</span>
+          </div>
+          <div class="nav-right">
+            <!-- Optional nav items -->
+            <a href="#">Home</a>
+            <a href="#">Premium</a>
+            <a href="#">About</a>
+          </div>
+        </nav>
+      </header>
+      <main>
+        <form id="urlForm">
+          <input type="text" id="videoUrl" placeholder="Paste video URL here" required />
+          <button type="submit">Fetch Formats</button>
+        </form>
+      
+        <div id="loading" style="display:none;">Loading formats...</div>
+      
+        <div id="videoHeader" style="display:none;">
+          <img id="videoThumbnail" src="" alt="Thumbnail" style="height:80px; margin-right:10px;">
+          <h2 id="videoTitle">Video Title</h2>
+        </div>
+      
+        <div id="resultContainer" style="text-align:center; margin-top:20px;"></div>
+      </main>
+      
+      <footer>© 2025 Play2Save</footer>
+
+      <!-- Load JavaScript from static folder -->
+      <script src="/static/script.js"></script>
+    </body>
+    </html>
