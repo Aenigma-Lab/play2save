@@ -1,6 +1,6 @@
-# Play2Save
+![Project Icon](https://img.icons8.com/ios/50/000000/download.png)  # Play2Save
 
-![Project Icon](https://img.icons8.com/ios/50/000000/download.png)  
+
 A simple public website for downloading video and audio content from multiple platforms (e.g., YouTube, Instagram) in MP3 and MP4 formats. This tool supports various video and audio qualities and provides a seamless download experience with detailed information on available formats.
 
 ## Features ✨
@@ -12,7 +12,7 @@ A simple public website for downloading video and audio content from multiple pl
 - **Video title and thumbnail**: Fetches and displays the video thumbnail and title.
 
 ## Screenshots 📸
-![Screenshot](screenshot.png)
+![Screenshot](https://github.com/Aenigma-Lab/play2save/blob/main/screenshort.png)
 
 ## Installation ⚙️
 
